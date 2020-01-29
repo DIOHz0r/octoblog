@@ -18,8 +18,14 @@
                         <a href="{{ url('homepage') }}" class="blog-header-logo text-dark">OctoBlog</a>
                     </div>
                     <div class="col-3 d-flex justify-content-end align-items-center">
-                        <a class="btn btn-sm btn-outline-secondary" href="{{ url('app_register') }}">Registrarse</a>&nbsp;
-                        <a class="btn btn-sm btn-success" href="#">Iniciar Sesión</a>
+                        {% if app.user %}
+                            Bienvenido(a) <br>{{ app.user }}&nbsp;<a class="btn btn-sm btn-outline-danger"
+                                                         href="{{ url('app_logout') }}">Salir</a>&nbsp;
+                        {% else %}
+                            <a class="btn btn-sm btn-outline-secondary"
+                               href="{{ url('app_register') }}">Registrarse</a>&nbsp;&nbsp;
+                            <a class="btn btn-sm btn-success" href="{{ url('app_login') }}">Iniciar Sesión</a>
+                        {% endif %}
                     </div>
                 </div>
             </header>
