@@ -55,9 +55,15 @@ class Post
      */
     private $autor;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Puntaje", mappedBy="post", orphanRemoval=true)
+     */
+    private $puntajes;
+
     public function __construct()
     {
         $this->comentarios = new ArrayCollection();
+        $this->puntajes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -152,6 +158,37 @@ class Post
     public function setAutor(?Usuario $autor): self
     {
         $this->autor = $autor;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Puntaje[]
+     */
+    public function getPuntajes(): Collection
+    {
+        return $this->puntajes;
+    }
+
+    public function addPuntaje(Puntaje $puntaje): self
+    {
+        if (!$this->puntajes->contains($puntaje)) {
+            $this->puntajes[] = $puntaje;
+            $puntaje->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removePuntaje(Puntaje $puntaje): self
+    {
+        if ($this->puntajes->contains($puntaje)) {
+            $this->puntajes->removeElement($puntaje);
+            // set the owning side to null (unless already changed)
+            if ($puntaje->getPost() === $this) {
+                $puntaje->setPost(null);
+            }
+        }
 
         return $this;
     }
