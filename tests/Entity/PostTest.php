@@ -3,14 +3,22 @@
 namespace App\Tests\Entity;
 
 use App\Entity\Post;
+use App\Entity\Usuario;
 use App\Tests\BaseEntityTestCase;
 
 class PostTest extends BaseEntityTestCase
 {
 
-    public function testValidarTitulo()
+    protected function newEntityWithRelations()
     {
         $entity = new Post();
+        $entity->setAutor(new Usuario());
+        return $entity;
+    }
+
+    public function testValidarTitulo()
+    {
+        $entity = $this->newEntityWithRelations();
 
         $textos = [
             'message' => 'This value should not be blank.',
@@ -29,7 +37,7 @@ class PostTest extends BaseEntityTestCase
 
     public function testValidarContenido()
     {
-        $entity = new Post();
+        $entity = $this->newEntityWithRelations();
         $entity->setTitulo('Lorem ipsum dolor');
 
         $textos = [
@@ -49,7 +57,7 @@ class PostTest extends BaseEntityTestCase
 
     public function testValidarFecha()
     {
-        $entity = new Post();
+        $entity = $this->newEntityWithRelations();
         $entity->setTitulo('Lorem ipsum dolor');
         $entity->setContenido('Lorem ipsum dolor sit amet.');
 

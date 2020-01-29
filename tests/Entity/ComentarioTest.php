@@ -4,6 +4,7 @@ namespace App\Tests\Entity;
 
 use App\Entity\Comentario;
 use App\Entity\Post;
+use App\Entity\Usuario;
 use App\Tests\BaseEntityTestCase;
 
 class ComentarioTest extends BaseEntityTestCase
@@ -13,6 +14,7 @@ class ComentarioTest extends BaseEntityTestCase
     {
         $entity = new Comentario();
         $entity->setPost(new Post());
+        $entity->setAutor(new Usuario());
         return $entity;
     }
 

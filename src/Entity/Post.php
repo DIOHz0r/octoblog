@@ -49,6 +49,12 @@ class Post
      */
     private $comentarios;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Usuario", inversedBy="posts")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $autor;
+
     public function __construct()
     {
         $this->comentarios = new ArrayCollection();
@@ -134,6 +140,18 @@ class Post
                 $comentario->setPost(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAutor(): ?Usuario
+    {
+        return $this->autor;
+    }
+
+    public function setAutor(?Usuario $autor): self
+    {
+        $this->autor = $autor;
 
         return $this;
     }

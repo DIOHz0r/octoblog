@@ -49,6 +49,12 @@ class Comentario
      */
     private $fecha;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Usuario", inversedBy="comentarios")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $autor;
+
     public function __construct()
     {
         $this->hijos = new ArrayCollection();
@@ -134,6 +140,18 @@ class Comentario
     public function setFecha(\DateTimeInterface $fecha): self
     {
         $this->fecha = $fecha;
+
+        return $this;
+    }
+
+    public function getAutor(): ?Usuario
+    {
+        return $this->autor;
+    }
+
+    public function setAutor(?Usuario $autor): self
+    {
+        $this->autor = $autor;
 
         return $this;
     }
