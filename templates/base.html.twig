@@ -11,15 +11,27 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+    {% if app.request.hasPreviousSession %}
+        <div class="container">
+        {% for tipo, mensajes in app.session.flashbag.all() %}
+            {% for mensaje in mensajes %}
+                <p class="flash flash-{{ tipo }}">
+                    {{ tipo == 'error' ? '<strong>Error</strong> '|raw }}
+                    {{ mensaje }}
+                </p>
+            {% endfor %}
+        {% endfor %}
+        </div>
+    {% endif %}
         <div class="container">
             <header class="blog-header py-2">
                 <div class="row flex-nowrap justify-content-between align-items-center">
-                    <div class="col-9 text-center">
+                    <div class="col-9">
                         <a href="{{ url('homepage') }}" class="blog-header-logo text-dark">OctoBlog</a>
                     </div>
                     <div class="col-3 d-flex justify-content-end align-items-center">
                         {% if app.user %}
-                            Bienvenido(a) <br>{{ app.user }}&nbsp;<a class="btn btn-sm btn-outline-danger"
+                            <a href="{{ path('usuario_edit', {'id': app.user.id}) }}">{{ app.user }}</a>&nbsp;<a class="btn btn-sm btn-outline-danger"
                                                          href="{{ url('app_logout') }}">Salir</a>&nbsp;
                         {% else %}
                             <a class="btn btn-sm btn-outline-secondary"
