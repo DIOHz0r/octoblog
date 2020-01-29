@@ -1,12 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>{% block title %}{% endblock %}OctoBlog</title>
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('build/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('build/css/blog.css') }}">
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <div class="container">
+            <header class="blog-header py-2">
+                <div class="row flex-nowrap justify-content-between align-items-center">
+                    <div class="col-9 text-center">
+                        <a href="{{ url('homepage') }}" class="blog-header-logo text-dark">OctoBlog</a>
+                    </div>
+                    <div class="col-3 d-flex justify-content-end align-items-center">
+                        <a class="btn btn-sm btn-outline-secondary" href="{{ url('app_register') }}">Registrarse</a>&nbsp;
+                        <a class="btn btn-sm btn-success" href="#">Iniciar Sesión</a>
+                    </div>
+                </div>
+            </header>
+            <main class="container" role="main">
+                {% block body %}{% endblock %}
+            </main>
+        </div>
+        <footer class="blog-footer">
+            <p>Blog template hecho en <a href="https://getbootstrap.com/">Bootstrap</a> por <a
+                        href="https://twitter.com/diohz0r">@diohz0r</a>.</p>
+        </footer>
+        <script src="{{ asset('build/js/jquery-3.4.1.slim.min.js') }}"></script>
+        <script src="{{ asset('build/js/popper.min.js') }}"></script>
+        <script src="{{ asset('build/js/bootstrap.min.js') }}"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>
