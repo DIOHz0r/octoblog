@@ -68,6 +68,11 @@ class Usuario implements UserInterface
         $this->comentarios = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->getNombre()." ".$this->getApellido();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

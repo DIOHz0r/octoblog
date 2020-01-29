@@ -7,6 +7,16 @@ use App\Tests\BaseEntityTestCase;
 
 class UsuarioTest extends BaseEntityTestCase
 {
+
+    public function testToString()
+    {
+        $entity = new Usuario();
+        $entity->setNombre('foo');
+        $entity->setApellido('bar');
+
+        $this->assertEquals('foo bar', $entity);
+    }
+
     public function testValidarEmail()
     {
         $entity = new Usuario();
