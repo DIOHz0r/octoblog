@@ -34,8 +34,18 @@
                     </div>
                     <div class="col-3 d-flex justify-content-end align-items-center">
                         {% if app.user %}
-                            <a href="{{ path('usuario_edit', {'id': app.user.id}) }}">{{ app.user }}</a>&nbsp;<a class="btn btn-sm btn-outline-danger"
-                                                         href="{{ url('app_logout') }}">Salir</a>&nbsp;
+                            <a href="{{ path('post_new') }}" class="btn btn-success">Crear Post</a>
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true"
+                               aria-expanded="false">
+                                {{ app.user }}
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ path('usuario_edit', {'id': app.user.id}) }}">Mi
+                                    Perfil</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-danger" href="{{ url('app_logout') }}">Salir</a>
+                            </div>
                         {% else %}
                             <a class="btn btn-sm btn-outline-secondary"
                                href="{{ url('app_register') }}">Registrarse</a>&nbsp;&nbsp;
