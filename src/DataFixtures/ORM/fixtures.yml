@@ -1,22 +1,22 @@
 App\Entity\Usuario:
   usuario_admin:
     email: 'admin@octoblog.local'
-    nombre: 'foo'
-    apellido: 'bar'
+    nombre: 'addmin'
+    apellido: 'foo'
     roles: ['ROLE_ADMIN']
-    password: 'admin123'
+    plain_password: 'admin123'
   usuario_normal:
     email: 'usuario@octoblog.local'
-    nombre: 'lorem'
-    apellido: 'ipsum'
+    nombre: 'usuario'
+    apellido: 'bar'
     roles: ['ROLE_USER']
-    password: 'usuario123'
+    plain_password: 'usuario123'
   usuario_{1..5}:
     email: 'usuario<current()>\@octoblog.local'
     nombre: '<firstName()>'
     apellido: '<lastName()>'
     roles: ['ROLE_USER']
-    password: 'usuario<current()>'
+    plain_password: 'usuario<current()>'
 
 App\Entity\Post:
   post_admin:

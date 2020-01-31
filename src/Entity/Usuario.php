@@ -62,6 +62,8 @@ class Usuario implements UserInterface
      */
     private $comentarios;
 
+    private $plainPassword;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
@@ -114,6 +116,9 @@ class Usuario implements UserInterface
 
     public function setRoles(array $roles): self
     {
+        if (empty($roles)) {
+            $roles[] = 'ROLE_USER';
+        }
         $this->roles = $roles;
 
         return $this;
@@ -235,5 +240,21 @@ class Usuario implements UserInterface
         }
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param mixed $plainPassword
+     */
+    public function setPlainPassword($plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
     }
 }
