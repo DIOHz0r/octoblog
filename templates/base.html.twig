@@ -15,10 +15,13 @@
         <div class="container">
         {% for tipo, mensajes in app.session.flashbag.all() %}
             {% for mensaje in mensajes %}
-                <p class="flash flash-{{ tipo }}">
+                <div class="alert alert-{{ tipo }} alert-dismissible fade show" role="alert">
                     {{ tipo == 'error' ? '<strong>Error</strong> '|raw }}
                     {{ mensaje }}
-                </p>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
             {% endfor %}
         {% endfor %}
         </div>

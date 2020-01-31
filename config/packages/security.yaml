@@ -23,7 +23,7 @@ security:
             anonymous: lazy
             guard:
                 authenticators:
-                    - App\Security\LoginFormAutenticadorAuthenticator
+                    - app.security.login_form_authenticator
             logout:
                 path: app_logout
                 # where to redirect after logout
