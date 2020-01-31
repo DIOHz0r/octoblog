@@ -7,6 +7,7 @@
         <div class="col-md-8 blog-main">
             <section class="blog-post">
                 <h1 class="blog-post-title">{{ post.titulo }}</h1>
+                <img src="{{ asset('uploads/' ~ post.imagen) }}" alt="{{ post.imagen }}" class="img-fluid m-2 p-2">
                 <article>
                     {{ post.contenido|nl2br }}
                 </article>

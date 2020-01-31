@@ -7,6 +7,7 @@ use App\Entity\Post;
 use App\Entity\Puntaje;
 use App\Form\PostType;
 use App\Repository\PostRepository;
+use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,13 +32,18 @@ class PostController extends AbstractController
     /**
      * @Route("/new", name="post_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, FileUploader $fileUploader): Response
     {
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $upload_imagen = $form['upload_imagen']->getData();
+            if ($upload_imagen) {
+                $upload_imagen = $fileUploader->upload($upload_imagen);
+                $post->setImagen($upload_imagen);
+            }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($post);
             $entityManager->flush();
@@ -71,12 +77,17 @@ class PostController extends AbstractController
     /**
      * @Route("/{id}/edit", name="post_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Post $post): Response
+    public function edit(Request $request, Post $post, FileUploader $fileUploader): Response
     {
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $upload_imagen = $form['upload_imagen']->getData();
+            if ($upload_imagen) {
+                $upload_imagen = $fileUploader->upload($upload_imagen);
+                $post->setImagen($upload_imagen);
+            }
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('post_index');

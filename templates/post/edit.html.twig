@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar Post{% endblock %}
+
+{% block body %}
+    <h1>Editar post</h1>
+
+    {{ include('post/_form.html.twig', {'button_label': 'Actualizar'}) }}
+
+    {{ include('post/_delete_form.html.twig') }}
+{% endblock %}

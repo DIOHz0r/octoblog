@@ -1,0 +1,9 @@
+{{ form_start(form) }}
+    {{ form_row(form.titulo) }}
+    {{ form_row(form.contenido) }}
+    {{ form_row(form.upload_imagen) }}
+    {% if post.imagen %}
+        <div>Imagen actual: <a href="{{ asset('uploads/' ~ post.imagen) }} " target="_blank">{{ post.imagen }}</a></div>
+    {% endif %}
+    <button class="btn btn-secondary">{{ button_label|default('Salvar') }}</button>
+{{ form_end(form) }}
