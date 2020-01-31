@@ -56,7 +56,7 @@ class Post
     private $autor;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Puntaje", mappedBy="post", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Puntaje", mappedBy="post")
      */
     private $puntajes;
 
