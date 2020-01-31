@@ -27,3 +27,7 @@ services:
     # please note that last definitions always *replace* previous ones
     app.security.login_form_authenticator:
         class: 'App\Security\LoginFormAutenticadorAuthenticator'
+
+    App\Service\FileUploader:
+        arguments:
+            $targetDirectory: '%kernel.project_dir%/public/uploads/'

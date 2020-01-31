@@ -1,4 +1,6 @@
 .idea/
+/public/uploads/*
+!/public/uploads/.gitignore
 
 ###> symfony/framework-bundle ###
 /.env.local
