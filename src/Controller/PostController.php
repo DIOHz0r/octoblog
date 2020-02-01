@@ -65,7 +65,10 @@ class PostController extends AbstractController
         $comentariosRepo = $em->getRepository(Comentario::class);
         $puntajeRepo = $em->getRepository(Puntaje::class);
 
-        $comentarios = $comentariosRepo->findBy(['post' => $post], ['id' => 'ASC', 'padre' => 'ASC', 'fecha' => 'ASC']);
+        $comentarios = $comentariosRepo->findBy(
+            ['post' => $post, 'padre' => null],
+            ['id' => 'ASC', 'padre' => 'ASC', 'fecha' => 'ASC']
+        );
         $puntaje = $puntajeRepo->getPostAverage($post);
         return $this->render('post/show.html.twig', [
             'post' => $post,

@@ -43,8 +43,8 @@ App\Entity\Comentario:
     fecha: '<dateTime("2020-01-29")>'
     mensaje: '<sentence()>'
   comentario_{6..10}:
-    post: '@post_*'
-    padre: '50%? @comentario_<numberBetween(1,5)>'
+    post: '@post_admin'
+    padre: '75%? @comentario_<numberBetween(1,5)>'
     autor: '@usuario_*'
     fecha: '<dateTime()>'
     mensaje: '<sentence()>'
@@ -56,7 +56,7 @@ App\Entity\Comentario:
     mensaje: '<sentence()>'
   comentario_{16..20}:
     post: '@post_usuario'
-    padre: '50%? @comentario_<numberBetween(11,15)>'
+    padre: '75%? @comentario_<numberBetween(11,15)>'
     autor: '@usuario_*'
     fecha: '<dateTime()>'
     mensaje: '<sentence()>'

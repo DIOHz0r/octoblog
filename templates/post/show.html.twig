@@ -15,13 +15,8 @@
                 <section>
                     <h3 class="font-italic">Comentarios <span
                                 class="badge badge-secondary">{{ comentarios|length }}</span></h3>
-                    <ul class="list-group list-group-flush">
-                        {% for comentario in comentarios %}
-                            <li class="list-group-item"><strong>{{ comentario.autor }}</strong>
-                                <small>el {{ comentario.fecha|date("d/m/Y \\a \\l\\a\\s g:ia") }}</small><br>{{ comentario.mensaje }}
-                                <br><a href="#">Responder</a></li>
-                        {% endfor %}
-                    </ul>
+                    {% import 'post/_macro.html.twig' as macros %}
+                    {{ macros.print_comments_recursively(comentarios) }}
                 </section>
             </section>
         </div>

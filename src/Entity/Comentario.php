@@ -32,7 +32,7 @@ class Comentario
     private $padre;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comentario", mappedBy="padre")
+     * @ORM\OneToMany(targetEntity="App\Entity\Comentario", mappedBy="padre", fetch="EAGER")
      */
     private $hijos;
 
@@ -50,7 +50,7 @@ class Comentario
     private $fecha;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Usuario", inversedBy="comentarios")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Usuario", inversedBy="comentarios", fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      */
     private $autor;
