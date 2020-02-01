@@ -1,7 +1,7 @@
 App\Entity\Usuario:
   usuario_admin:
     email: 'admin@octoblog.local'
-    nombre: 'addmin'
+    nombre: 'admin'
     apellido: 'foo'
     roles: ['ROLE_ADMIN']
     plain_password: 'admin123'
