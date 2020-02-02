@@ -1,0 +1,8 @@
+<li class="list-group-item" data-comentario="{{ comentario.id }}"><strong>{{ comentario.autor }}</strong>
+    <small>el {{ comentario.fecha|date("d/m/Y \\a \\l\\a\\s g:ia") }}</small><br>{{ comentario.mensaje }}
+    <br>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <a href="javascript:responder('{{ comentario.id }}')" class="btn btn-link">Responder</a>
+        <div class="reply-form-{{ comentario.id }}" data-role="reply-form"></div>
+    {% endif %}
+</li>

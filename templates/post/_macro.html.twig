@@ -1,9 +1,7 @@
 {% macro print_comments_recursively(comentarios) %}
     <ul class="list-group list-group-flush">
         {% for comentario in comentarios %}
-        <li class="list-group-item"><strong>{{ comentario.autor }}</strong>
-            <small>el {{ comentario.fecha|date("d/m/Y \\a \\l\\a\\s g:ia") }}</small><br>{{ comentario.mensaje }}
-            <br><a href="#">Responder</a></li>
+            {% include 'comentario/_show.html.twig' %}
         {% if comentario.hijos is not empty  %}
             <li class="list-group-item">{{ _self.print_comments_recursively(comentario.hijos) }}</li>
         {% endif %}

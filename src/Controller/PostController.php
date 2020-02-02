@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Comentario;
 use App\Entity\Post;
 use App\Entity\Puntaje;
+use App\Form\ComentarioType;
 use App\Form\PostType;
 use App\Repository\PostRepository;
 use App\Service\FileUploader;
@@ -70,10 +71,20 @@ class PostController extends AbstractController
             ['id' => 'ASC', 'padre' => 'ASC', 'fecha' => 'ASC']
         );
         $puntaje = $puntajeRepo->getPostAverage($post);
+
+        $form = null;
+        if ($this->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $comentario = new Comentario();
+            $comentario->setPost($post);
+            $comentario->setAutor($this->getUser());
+            $form = $this->createForm(ComentarioType::class, $comentario)->createView();
+        }
+
         return $this->render('post/show.html.twig', [
             'post' => $post,
             'comentarios' => $comentarios,
             'puntaje' => $puntaje,
+            'form' => $form,
         ]);
     }
 

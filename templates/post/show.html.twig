@@ -25,8 +25,17 @@
                 <section>
                     <h3 class="font-italic">Comentarios <span
                                 class="badge badge-secondary">{{ comentarios|length }}</span></h3>
-                    {% import 'post/_macro.html.twig' as macros %}
-                    {{ macros.print_comments_recursively(comentarios) }}
+                    <div class="listaComentarios">
+                        {% import 'post/_macro.html.twig' as macros %}
+                        {{ macros.print_comments_recursively(comentarios) }}
+                    </div>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <div class="new-comment-container">
+                            {% include 'comentario/new.html.twig' with {'action': path('comentario_new')} %}
+                        </div>
+                    {% else %}
+                        <br><a href="{{ path('app_login') }}" class="btn btn-success">Inicia sesión para comentar</a>
+                    {% endif %}
                 </section>
             </section>
         </div>
@@ -55,11 +64,11 @@
                         </li>
                     {% endfor %}
                     </ul>
-                <div class="success-box text-center"></div>
+                    <div class="success-box text-center"></div>
                 </p>
             </div>
             {% if is_granted('IS_AUTHENTICATED_FULLY') and (app.user.id == post.autor.id or is_granted('ROLE_ADMIN')) %}
-                <a href="{{ path('post_edit', {'id': post.id}) }}">Editar</a>
+                <a href="{{ path('post_edit', {'id': post.id}) }}" class="btn btn-outline-primary">Editar</a>
                 {{ include('post/_delete_form.html.twig') }}
             {% endif %}
         </aside>
@@ -122,6 +131,42 @@
                     $(".success-box").html("<div class='alert alert-warning'>Opinión no registrada</div>");
                 });
             });
+        });
+    </script>
+    <script>
+        /* nuevos comentarios */
+        $(document).ready(function(){
+            let wrapper = $('.new-comment-container').on(
+                'submit', 'form', handleNewFormSubmit.bind(this)
+            );
+
+            function handleNewFormSubmit(e) {
+                e.preventDefault();
+                let form = $(e.currentTarget);
+                let formBtn = form.find('button');
+                $.ajax({
+                    url: form.attr('action'),
+                    method: 'POST',
+                    data: form.serialize(),
+                    success: function (data) {
+                        let listaComentarios = $('.listaComentarios').children('ul');
+                        listaComentarios.append(data);
+                        $('#comentario_mensaje').val('');
+                        formBtn.attr('disabled', false);
+                        formBtn.children('.submitLoader').addClass("collapse");
+                        formBtn.children('.submitTexto').removeClass("collapse");
+                    },
+                    error: function (jqXHR) {
+                        form.closest('.js-new-wrapper').html(jqXHR.responseText);
+                    },
+                    beforeSend: function() {
+                        console.log(formBtn);
+                        formBtn.attr('disabled', true);
+                        formBtn.children('.submitTexto').addClass("collapse");
+                        formBtn.children('.submitLoader').removeClass("collapse");
+                    },
+                });
+            }
         });
     </script>
 {% endblock %}
