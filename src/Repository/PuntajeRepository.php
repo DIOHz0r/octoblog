@@ -2,7 +2,6 @@
 
 namespace App\Repository;
 
-use App\Entity\Post;
 use App\Entity\Puntaje;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -21,7 +20,7 @@ class PuntajeRepository extends ServiceEntityRepository
         parent::__construct($registry, Puntaje::class);
     }
 
-    public function getPostAverage(Post $post)
+    public function getPostAverage($post)
     {
         return $this->createQueryBuilder('p')
             ->select('AVG(p.valor) as average')
@@ -31,32 +30,15 @@ class PuntajeRepository extends ServiceEntityRepository
             ->getResult(AbstractQuery::HYDRATE_SINGLE_SCALAR);
     }
 
-    // /**
-    //  * @return Puntaje[] Returns an array of Puntaje objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getVotoUsuario($post, $usuario)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('p.post = :post')
+            ->andWhere('p.usuario = :usuario')
+            ->setParameter('post', $post)
+            ->setParameter('usuario', $usuario)
+            ->setMaxResults(1)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getOneOrNullResult();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Puntaje
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
