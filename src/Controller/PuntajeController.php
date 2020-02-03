@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Post;
 use App\Entity\Puntaje;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -19,21 +20,22 @@ class PuntajeController extends AbstractController
      */
     public function new(Request $request): JsonResponse
     {
-        $usuarioId = $this->getUser()->getId();
+        $usuario = $this->getUser();
         $token = $request->request->get('token');
-        if (!$this->isCsrfTokenValid($usuarioId, $token)) {
+        if (!$this->isCsrfTokenValid($usuario->getId(), $token)) {
             return new JsonResponse(['Token de seguridad invalido'], 403);
         }
 
         $postId = $request->get('post');
-        $puntajeRepo = $this->getDoctrine()->getRepository('App:Puntaje');
-        $result = $puntajeRepo->getVotoUsuario($postId, $usuarioId);
+        $entityManager = $this->getDoctrine()->getManager();
+        $puntajeRepo = $entityManager->getRepository(Puntaje::class);
+        $result = $puntajeRepo->getVotoUsuario($postId, $usuario->getId());
         $puntaje = $result ? $result : new Puntaje();
 
         $statusCode = 200;
         if (null === $puntaje->getId()) {
-            $puntaje->setPost($postId);
-            $puntaje->setUsuario($usuarioId);
+            $puntaje->setPost($entityManager->getRepository(Post::class)->find($postId));
+            $puntaje->setUsuario($usuario);
             $statusCode = 201;
         }
 
