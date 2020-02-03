@@ -1,8 +1,12 @@
-<li class="list-group-item" data-comentario="{{ comentario.id }}"><strong>{{ comentario.autor }}</strong>
-    <small>el {{ comentario.fecha|date("d/m/Y \\a \\l\\a\\s g:ia") }}</small><br>{{ comentario.mensaje }}
-    <br>
+<li class="list-group-item" id="li-{{ comentario.id }}">
+    <div>
+        <strong>{{ comentario.autor }}</strong>
+        <small>el {{ comentario.fecha|date("d/m/Y \\a \\l\\a\\s g:ia") }}</small>
+        <br>{{ comentario.mensaje }}<br>
+    </div>
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        <a href="javascript:responder('{{ comentario.id }}')" class="btn btn-link">Responder</a>
-        <div class="reply-form-{{ comentario.id }}" data-role="reply-form"></div>
+        <a class="btn btn-outline-secondary" onclick="responder('{{ comentario.id }}')">Responder</a>
+        <div class="reply-form-{{ comentario.id }}"></div>
     {% endif %}
+    <ul class="list-group list-group-flush"></ul>
 </li>

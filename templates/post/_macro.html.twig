@@ -2,9 +2,9 @@
     <ul class="list-group list-group-flush">
         {% for comentario in comentarios %}
             {% include 'comentario/_show.html.twig' %}
-        {% if comentario.hijos is not empty  %}
-            <li class="list-group-item">{{ _self.print_comments_recursively(comentario.hijos) }}</li>
-        {% endif %}
+            {% if comentario.hijos is not empty %}
+                <li class="list-group-item">{{ _self.print_comments_recursively(comentario.hijos) }}</li>
+            {% endif %}
         {% endfor %}
     </ul>
 {% endmacro %}

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Comentario;
 use App\Form\ComentarioType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,14 +20,23 @@ class ComentarioController extends AbstractController
     /**
      * @Route("/new", name="comentario_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $comentario = new Comentario();
+
+        // cuando responden a un mensaje asignamos el padre
+        if ($comentarioId = $request->query->get('comentarioId')) {
+            $replyTo = $entityManager->getRepository(Comentario::class)->find($comentarioId);
+            $comentario->setPadre($replyTo);
+            $comentario->setPost($replyTo->getPost());
+        }
+
         $form = $this->createForm(ComentarioType::class, $comentario);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
+        $responseCode = 200;
+        $isSubmitted = $form->isSubmitted();
+        if ($isSubmitted && $isValid = $form->isValid()) {
             $entityManager->persist($comentario);
             $entityManager->flush();
 
@@ -34,6 +44,8 @@ class ComentarioController extends AbstractController
                 $html = $this->renderView('comentario/_show.html.twig', ['comentario' => $comentario]);
                 return new Response($html, 201);
             }
+        } elseif ($isSubmitted) {
+            $responseCode = 400;
         }
 
         if ($request->isXmlHttpRequest()) {
@@ -45,7 +57,7 @@ class ComentarioController extends AbstractController
                 ]
             );
 
-            return new Response($html, 400);
+            return new Response($html, $responseCode);
         }
 
         return $this->render('comentario/new.html.twig', [

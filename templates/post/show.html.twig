@@ -91,7 +91,6 @@
                         svg.removeClass('text-warning');
                     }
                 });
-
             }).on('mouseout', function(){
                 $(this).parent().children("li").each(function(e){
                     $(this).children("svg").removeClass('text-warning');
@@ -131,17 +130,39 @@
                     $(".success-box").html("<div class='alert alert-warning'>Opinión no registrada</div>");
                 });
             });
-        });
-    </script>
-    <script>
-        /* nuevos comentarios */
-        $(document).ready(function(){
+
             $('.new-comment-container').on('submit', {
                     nodoComentarios: '.listaComentarios',
                     nodoFormulario: '.js-new-wrapper'
                 }, handleNewFormSubmit.bind(this)
             );
         });
+
+        function responder(comentarioId){
+            let nodoFormulario = '.reply-form-' + comentarioId;
+            let replyArea = $(nodoFormulario);
+            $.ajax({
+                url: "{{ path('comentario_new') }}",
+                method: 'GET',
+                data: {comentarioId: comentarioId},
+                success: function (data) {
+                    replyArea.html(data);
+                    replyArea.on('submit', {
+                            nodoComentarios: '#li-' + comentarioId,
+                            nodoFormulario: nodoFormulario
+                        }, handleNewFormSubmit.bind(this)
+                    );
+                },
+                error: function (jqXHR) {
+                    replyArea.html(jqXHR.responseText);
+                },
+                beforeSend: function() {
+                    replyArea.html('<div class="spinner-border text-secondary" role="status">\n' +
+                        '  <span class="sr-only">Cargando...</span>\n' +
+                        '</div>');
+                },
+            });
+        }
 
         function handleNewFormSubmit(e) {
             e.preventDefault();
@@ -152,15 +173,15 @@
                 method: 'POST',
                 data: form.serialize(),
                 success: function (data) {
-                    let listaComentarios = $(e.data.nodoComentarios).children('ul');
-                    listaComentarios.append(data);
+                    let nodoLista = $(e.data.nodoComentarios).children('ul');
+                    nodoLista.append(data);
                     form.find('#comentario_mensaje').val('');
                     formBtn.attr('disabled', false);
                     formBtn.children('.submitLoader').addClass("collapse");
                     formBtn.children('.submitTexto').removeClass("collapse");
                 },
                 error: function (jqXHR) {
-                    form.closest(e.data.nodoFormulario).html(jqXHR.responseText);
+                    $(e.data.nodoFormulario).html(jqXHR.responseText);
                 },
                 beforeSend: function() {
                     formBtn.attr('disabled', true);
