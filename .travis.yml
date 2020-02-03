@@ -19,6 +19,5 @@ php:
 script:
   - if [ "${TRAVIS_PHP_VERSION:0:3}" = "$CS" ]; then COVERAGE='--coverage-text' ; else COVERAGE='--no-coverage'; fi
   - composer install -n --prefer-dist
-  - bin/console doctrine:schema:create
   - bin/console doctrine:fixtures:load -n
   - bin/phpunit $COVERAGE
