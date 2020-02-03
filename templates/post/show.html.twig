@@ -26,7 +26,7 @@
                     <h3 class="font-italic">Comentarios <span
                                 class="badge badge-secondary">{{ comentarios|length }}</span></h3>
                     <div class="listaComentarios">
-                        {% import 'post/_macro.html.twig' as macros %}
+                        {% import 'comentario/_macro.html.twig' as macros %}
                         {{ macros.print_comments_recursively(comentarios) }}
                     </div>
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
