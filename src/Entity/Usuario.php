@@ -53,12 +53,12 @@ class Usuario implements UserInterface
     private $apellido;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Post", mappedBy="Autor")
+     * @ORM\OneToMany(targetEntity="App\Entity\Post", mappedBy="autor")
      */
     private $posts;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comentario", mappedBy="Autor")
+     * @ORM\OneToMany(targetEntity="App\Entity\Comentario", mappedBy="autor")
      */
     private $comentarios;
 
