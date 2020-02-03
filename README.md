@@ -6,31 +6,15 @@ Un blog sencillo construido con Symfony 4.3.
 
 ## Requisitos
 
-* Necesario PHP 7.1 o superior
+* Necesario PHP 7.1.3 o superior
 * [Composer](https://getcomposer.org) .
-* MySQL 5.7 o compatible.
+* Extension PDO-SQLite de PHP habilitada.
 
 ## Instalación
 
 Clonar el repositorio y ejecutar el siguiente comando en el directorio del proyecto.
 
 ```composer install --no-dev``` 
-
-Copiar el archivo '.env' en el directorio del proyecto y nombrar como '.env.local'
-
-```$ cp .env .env.local```
-
-Ajustar los datos de conexion a la base de datos (db_user, db_password, ip, db_name) en el archivo .env.local
-
-```mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7``` 
-
-> Si usa mariadb cambiar el valor de ```serverVersion``` a ```mariadb-X.Y.Z``` donde X en la version mayor, Y la menor, y Z la revision según su instalación local
-
-Ejecutar los siguientes comando para crear la base de datos y registros de prueba.
-
-```bin/console doctrine:schema:create``` 
-```bin/console doctrine:fixtures:load -n``` 
-
 
 ## Acceso por web
 
