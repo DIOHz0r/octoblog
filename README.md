@@ -16,6 +16,10 @@ Clonar el repositorio y ejecutar el siguiente comando en el directorio del proye
 
 ```composer install --no-dev``` 
 
+Asegurarse de tener propiedades de lectura y escritura al archivo de base de datos, si es necesario ejecutar:
+
+```chmod -R 777 data```
+
 ## Acceso por web
 
 ### Apache
