@@ -40,4 +40,6 @@ security:
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/registro, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/usuario/*, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/post/\d+$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/post/$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/*, roles: IS_AUTHENTICATED_FULLY }
