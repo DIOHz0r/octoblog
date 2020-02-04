@@ -20,6 +20,10 @@ Asegurarse de tener propiedades de lectura y escritura al archivo de base de dat
 
 ```chmod -R 777 data```
 
+Asegurarse de tener propiedades de lectura y escritura la carpeta de uploads, si es necesario ejecutar:
+
+```chmod 777 public/uploads```
+
 ## Acceso por web
 
 ### Apache
