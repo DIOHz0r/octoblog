@@ -2,9 +2,9 @@
 
 namespace App\Tests\Controller;
 
-use App\Tests\BaseControllerTestCaseTest;
+use App\Tests\BaseControllerTestCase;
 
-class PuntajeControllerTest extends BaseControllerTestCaseTest
+class PuntajeControllerTest extends BaseControllerTestCase
 {
     public function testNoToken()
     {

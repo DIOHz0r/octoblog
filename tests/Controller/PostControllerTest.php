@@ -2,9 +2,9 @@
 
 namespace App\Tests\Controller;
 
-use App\Tests\BaseControllerTestCaseTest;
+use App\Tests\BaseControllerTestCase;
 
-class PostControllerTest extends BaseControllerTestCaseTest
+class PostControllerTest extends BaseControllerTestCase
 {
     public function testVistaSinLogin()
     {

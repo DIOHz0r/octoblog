@@ -5,7 +5,7 @@ namespace App\Tests;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class BaseControllerTestCaseTest extends WebTestCase
+class BaseControllerTestCase extends WebTestCase
 {
 
     /**
