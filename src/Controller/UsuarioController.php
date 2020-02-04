@@ -60,7 +60,7 @@ class UsuarioController extends AbstractController
     public function edit(Request $request, Usuario $usuario, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         if($this->getUser()->getId() != $usuario->getId() || !$this->isGranted("ROLE_ADMIN")){
-            $this->createAccessDeniedException('Acceso negado');
+            throw $this->createAccessDeniedException();
         }
 
         $form = $this->createForm(UsuarioType::class, $usuario);
