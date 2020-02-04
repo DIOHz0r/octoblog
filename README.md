@@ -2,7 +2,7 @@
 
 Un blog sencillo construido con Symfony 4.3.
 
-[Repositorio publico](https://github.com/DIOHz0r/octoblog)
+[Repositorio publico](https://github.com/DIOHz0r/octoblog) [![Build Status](https://travis-ci.org/DIOHz0r/octoblog.svg?branch=develop)](https://travis-ci.org/DIOHz0r/octoblog)
 
 ## Requisitos
 
@@ -49,6 +49,6 @@ Dentro del directorio ```public``` del proyecto ejecutar ```php -S localhost:800
 
 Cualquier persona puede hacer el proceso de registro, para ingresar con los datos de prueba use los siguentes datos:
 
-Email: admin@octoblog.local Clave: admin123
-Email: usuario@octoblog.local Clave: usuario123
-Email: usuario<N>@octoblog.local Clave: usuario<N> (<N> representa un numero del 1 al 5)
+* Email: admin@octoblog.local Clave: admin123
+* Email: usuario@octoblog.local Clave: usuario123
+* Email: usuario<N>@octoblog.local Clave: usuario<N> (<N> representa un numero del 1 al 5)
